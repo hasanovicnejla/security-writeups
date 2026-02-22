@@ -64,10 +64,10 @@ Started with a full port scan using **Nmap (Zenmap GUI)** against the target hos
 | 587 | SMTP | Open relay confirmed |
 | 631 | IPP | Internet Printing Protocol exposed |
 
-The number of exposed services on a public-facing host was immediately a red flag.Particularly Telnet on port 23, which transmits all data in plaintext and has no place on a modern system.
+The number of exposed services on a public-facing host was immediately a red flag. Particularly Telnet on port 23, which transmits all data in plaintext and has no place on a modern system.
 
 <p align="center">
-  <img src="assets/nmap-scan.png" width="80%">
+  <img src="assets/zenmap-scan.png" width="80%">
   <br><em>Nmap scan - open ports discovered</em>
 </p>
 
@@ -337,6 +337,7 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
 
