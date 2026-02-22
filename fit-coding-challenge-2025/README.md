@@ -141,7 +141,7 @@ db:   insta_db
 
 ---
 
-### Phase 6 — SMTP Open Relay Verification
+### Phase 6 - SMTP Open Relay Verification
 
 Ran Nmap scripts against the mail service ports:
 
@@ -299,6 +299,7 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
 
