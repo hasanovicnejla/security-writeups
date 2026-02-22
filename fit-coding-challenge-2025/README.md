@@ -149,7 +149,7 @@ Ran Nmap scripts against the mail service ports:
 nmap -p 25,587 --script smtp* [TARGET]
 ```
 
-Results confirmed the server was a fully open relay — accepting and forwarding mail from completely unauthenticated sources. SMTP user enumeration revealed usernames including `admin`, `administrator`, and `webadmin`.
+Results confirmed the server was a fully open relay, accepting and forwarding mail from completely unauthenticated sources. SMTP user enumeration revealed usernames including `admin`, `administrator`, and `webadmin`.
 
 Verified the relay manually using a Python script:
 
@@ -172,8 +172,34 @@ server.sendmail(from_addr, to_addr, message)
 server.quit()
 print("Email sent successfully.")
 ```
+The script connected to the mail server and sent the message without 
+any authentication. No exception was raised before the print statement, 
+confirming the server accepted and relayed the email validating the 
+open relay vulnerability.
 
-Email delivered successfully without any authentication — vulnerability confirmed.
+Improved version with proper error handling:
+```python
+import smtplib
+
+smtp_server = "[TARGET]"
+smtp_port = 587
+from_addr = "attacker@example.com"
+to_addr = "victim@example.com"
+message = """From: Attacker 
+To: Victim 
+Subject: Open Relay Test
+
+Test email sent through unauthenticated SMTP relay.
+"""
+
+try:
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.sendmail(from_addr, to_addr, message)
+    server.quit()
+    print("Email sent successfully.")
+except Exception as e:
+    print(f"Failed: {e}")
+```
 
 ![SMTP Nmap script output](assets/smtp-nmap.png)
 ![SMTP Python relay test](assets/smtp-python.png)
@@ -299,6 +325,7 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
 
