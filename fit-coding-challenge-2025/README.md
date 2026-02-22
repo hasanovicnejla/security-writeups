@@ -66,7 +66,10 @@ Started with a full port scan using **Nmap (Zenmap GUI)** against the target hos
 
 The number of exposed services on a public-facing host was immediately a red flag.Particularly Telnet on port 23, which transmits all data in plaintext and has no place on a modern system.
 
-![Nmap scan results](assets/zenmap-scan.png)
+<p align="center">
+  <img src="assets/nmap-scan.png" width="80%">
+  <br><em>Nmap scan - open ports discovered</em>
+</p>
 
 ---
 
@@ -76,8 +79,11 @@ Navigated directly to the target IP in a browser and discovered a login portal a
 
 Reviewed the page source via Chrome DevTools and identified that the login form submitted credentials to `login.php`.
 
-![Login page with DevTools](assets/login-page.png)
-![SSL certificate inspection](assets/ssl-cert.png)
+
+| Login page | SSL certificate inspection |
+|---|---|
+| <img src="assets/login-page.png" width="100%"> | <img src="assets/ssl-cert.png" width="100%"> |
+
 
 ---
 
@@ -93,7 +99,7 @@ Both attack paths were closed. Needed to look elsewhere.
 
 ---
 
-### Phase 4 — Hidden Entry Point Discovery
+### Phase 4 - Hidden Entry Point Discovery
 
 Scrolling through the login page revealed a styled narrative section titled *"The Tale of the Tabulating Machine"* containing an encoded string embedded in the text.
 
@@ -107,24 +113,27 @@ print(base64.b64decode("U0dWeWJXRnVTRzlzYkdWeWFYUm8=").decode())
 
 The narrative hinted that the username and password were identical. Authenticating with `HermanHollerith` / `HermanHollerith` succeeded which confirmed the presence of a hardcoded backdoor credential embedded in the application.
 
-![Poetic riddle with encoded string](assets/base64-riddle.png)
-![Base64 decode in Python](assets/base64-decode.png)
+| Encoded string in narrative | Base64 decode output |
+|---|---|
+| <img src="assets/base64-riddle.png" width="100%"> | <img src="assets/base64-decode.png" width="100%"> |
 
 ---
 
-## Phase 5 — Local File Inclusion (LFI) Exploitation
+## Phase 5 - Local File Inclusion (LFI) Exploitation
 
-After successfully authenticating with the decoded credentials, the application redirected to a hidden page at `/InstaCTF/hidden/findfile.php` — a file reader interface accepting arbitrary file paths. This is a textbook Local File Inclusion vulnerability.
+After successfully authenticating with the decoded credentials, the application redirected to a hidden page at `/InstaCTF/hidden/findfile.php`. It was a file reader interface accepting arbitrary file paths. This is a textbook Local File Inclusion vulnerability.
 
-![LFI file reader interface after login](assets/lfi-interface.png)
-
+<p align="center">
+  <img src="assets/lfi-interface.png" width="80%">
+  <br><em>File reader interface exposed after authentication</em>
+</p>
 **Files successfully read:**
 
 **`/etc/passwd`**
 Exposed the full list of system users, confirming the presence of an `administrator` account with a home directory, and revealing installed services including MySQL, FTP, and Postfix.
 
 **`/var/www/html/InstaCTF/login.php`**
-Revealed the authentication logic in full. Passwords were compared in plaintext — no hashing in place. Any database leak would directly expose all user credentials without requiring any cracking.
+Revealed the authentication logic in full. Passwords were compared in plaintext which means no hashing in place. Any database leak would directly expose all user credentials without requiring any cracking.
 
 **`/var/www/html/InstaCTF/connect.php`**
 Exposed hardcoded MySQL database credentials in plaintext:
@@ -136,8 +145,10 @@ pass: [REDACTED]
 db:   insta_db
 ```
 
-![LFI - /etc/passwd output](assets/lfi_passwd.png)
-![LFI - login.php and connect.php source](assets/lfi-source.png)
+| /etc/passwd output | login.php and connect.php source |
+|---|---|
+| <img src="assets/lfi_passwd.png" width="100%"> | <img src="assets/lfi-source.png" width="100%"> |
+
 
 ---
 
@@ -201,12 +212,13 @@ except Exception as e:
     print(f"Failed: {e}")
 ```
 
-![SMTP Nmap script output](assets/smtp-nmap.png)
-![SMTP Python relay test](assets/smtp-python.png)
+| SMTP Nmap output | Python relay test |
+|---|---|
+| <img src="assets/smtp-nmap.png" width="100%"> | <img src="assets/smtp-python.png" width="100%"> |
 
 ---
 
-### Phase 7 — Anonymous FTP Access
+### Phase 7 - Anonymous FTP Access
 
 Connected to the FTP service without credentials. Anonymous login was accepted. Directory browsing was possible, though upload permissions were restricted. While limited in direct impact, unauthenticated access to any internal directory structure represents meaningful information disclosure.
 
@@ -325,6 +337,7 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
 
