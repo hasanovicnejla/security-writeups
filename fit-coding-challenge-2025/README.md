@@ -137,7 +137,7 @@ db:   insta_db
 ```
 
 ![LFI - /etc/passwd output](assets/lfi_passwd.png)
-![LFI - login.php and connect.php source](assets/lfi-source(1).png)
+![LFI - login.php and connect.php source](assets/lfi-source (1).png)
 
 ---
 
@@ -299,5 +299,6 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
