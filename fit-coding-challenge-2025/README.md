@@ -66,8 +66,7 @@ Started with a full port scan using **Nmap (Zenmap GUI)** against the target hos
 
 The number of exposed services on a public-facing host was immediately a red flag.Particularly Telnet on port 23, which transmits all data in plaintext and has no place on a modern system.
 
-![Nmap scan results](assets/nmap-scan.png)
-![Open ports](assets/ports.png)
+![Nmap scan results](assets/zenmap-scan.png)
 
 ---
 
@@ -113,9 +112,11 @@ The narrative hinted that the username and password were identical. Authenticati
 
 ---
 
-### Phase 5 — Local File Inclusion (LFI) Exploitation
+## Phase 5 — Local File Inclusion (LFI) Exploitation
 
-Post-authentication, the application presented a file reader interface accepting arbitrary file paths, a textbook Local File Inclusion vulnerability.
+After successfully authenticating with the decoded credentials, the application redirected to a hidden page at `/InstaCTF/hidden/findfile.php` — a file reader interface accepting arbitrary file paths. This is a textbook Local File Inclusion vulnerability.
+
+![LFI file reader interface after login](assets/lfi-interface.png)
 
 **Files successfully read:**
 
@@ -123,7 +124,7 @@ Post-authentication, the application presented a file reader interface accepting
 Exposed the full list of system users, confirming the presence of an `administrator` account with a home directory, and revealing installed services including MySQL, FTP, and Postfix.
 
 **`/var/www/html/InstaCTF/login.php`**
-Revealed the authentication logic in full. Passwords were compared in plaintext with no hashing in place. Any database leak would directly expose all user credentials without requiring any cracking.
+Revealed the authentication logic in full. Passwords were compared in plaintext — no hashing in place. Any database leak would directly expose all user credentials without requiring any cracking.
 
 **`/var/www/html/InstaCTF/connect.php`**
 Exposed hardcoded MySQL database credentials in plaintext:
@@ -295,5 +296,6 @@ The environment described is a fully simulated competition setup. No real infras
 
 **Nejla Hasanović** | Cybersecurity Student  
 [GitHub](https://github.com/hasanovicnejla)
+
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
