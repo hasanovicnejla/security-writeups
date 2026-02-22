@@ -5,7 +5,7 @@ CTF writeups and penetration testing assessments.
 
 | Project | Category |
 |---|---|
-| [FIT Coding Challenge 2025](./ctf/fit-coding-challenge-2025/) | Web Application Pentesting | 
+| [FIT Coding Challenge 2025](./fit-coding-challenge-2025/) | Web Application Pentesting | 
 
 ## Author
 
