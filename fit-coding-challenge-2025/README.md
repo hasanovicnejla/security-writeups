@@ -329,7 +329,33 @@ This project demonstrates:
 The environment described is a fully simulated competition setup. No real infrastructure is referenced.
 
 ---
+## The Moment It Clicked 
 
+This was my first CTF.
+
+When I started, I genuinely did not know what I was doing. I had an IP address and a bunch of open ports on the screen. I didn’t even fully understand what half of the services meant. I just kept going.
+
+The moment I accessed `/etc/passwd` through the LFI vulnerability is something I will always remember. At that time, I didn’t understand every technical detail of the file, but I knew I should not be seeing it. I knew I was not supposed to have access to something like that. That realization gave me this strange warm feeling in my chest. Not because I “broke” something, but because I understood the impact.
+
+Then I found the database credentials.
+
+And I just sat there thinking… I actually did this.
+
+Not because I’m some expert. But because I kept trying.
+
+Before this CTF, I felt lost in IT. There are so many fields like development, AI, networks, and design, and I didn’t know where I belonged. I liked many things but nothing really pulled me in.
+
+This did.
+
+During this challenge, I was completely focused. Hours passed and I didn’t even notice. For the first time, I didn’t care about the ranking. When it ended, I didn’t even care what place I got. I had already gained something much more important.
+
+I found direction.
+
+This CTF didn’t just teach me about LFI, SMTP relays, or credential exposure. It showed me the kind of problems I want to solve. It showed me the kind of mindset I want to develop.
+
+It was the first time in my IT journey that everything just clicked.
+
+And that feeling means more to me than the 3rd place.
 ## Author
 
 **Nejla Hasanović** | Cybersecurity Student  
@@ -337,6 +363,7 @@ The environment described is a fully simulated competition setup. No real infras
 
 
 *FIT Coding Challenge 2025 - 3rd Place, Cybersecurity Category*
+
 
 
 
